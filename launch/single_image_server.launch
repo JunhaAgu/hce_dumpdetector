@@ -1,0 +1,22 @@
+<launch>
+
+  <arg name="launch_prefix" default="" /> <!--set to value="gdbserver localhost:10000" for remote debugging-->
+  <arg name="node_namespace" default="hce_dumpdetector_server_node" />
+
+  <!-- Set parameters -->
+  <rosparam command="load" file="$(find hce_dumpdetector)/config/settings.yaml" ns="$(arg node_namespace)" />
+  <rosparam command="load" file="$(find hce_dumpdetector)/config/tags.yaml" ns="$(arg node_namespace)" />
+
+  <node pkg="hce_dumpdetector" type="hce_dumpdetector_server_node" name="$(arg node_namespace)" clear_params="true" output="screen" launch-prefix="$(arg launch_prefix)" >
+    
+    <!-- <param name="image_load_path" type="str" value="$(arg image_load_path)" />
+    <param name="image_save_path" type="str" value="$(arg image_save_path)" />-->
+
+    <!-- Camera intrinsic parameters -->
+    <param name="fx" type="double" value="893.4800446716952" />
+    <param name="fy" type="double" value="893.2138912525431" />
+    <param name="cx" type="double" value="529.8848649123668" />
+    <param name="cy" type="double" value="395.1783894490890" />
+
+  </node>
+</launch>
