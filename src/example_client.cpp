@@ -1,5 +1,4 @@
 #include "ros/ros.h"
-#include "hce_dumpdetector/AddTwoInts.h"
 #include <cstdlib>
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui.hpp>
@@ -25,8 +24,9 @@ int main(int argc, char **argv)
   hce_msgs::CallDumpDetector srv;
   // srv.request.a = atoll(argv[1]);
   // srv.request.b = atoll(argv[2]);
+  // srv.response.tag_centers.reserve(4);
 
-  Mat img = imread("/home/junhakim/6.png", 1);
+  Mat img = imread("/home/junhakim/image.png", 1);
   cv_bridge::CvImage img_bridge;
   sensor_msgs::Image img_msg;
 
@@ -47,20 +47,17 @@ int main(int argc, char **argv)
 
   if (client.call(srv))
   {
-    // ROS_INFO("Sum: %ld", (long int)srv.response.sum);
-    // ROS_INFO("tag detection success?: Yes");
+
     ROS_INFO("tag detection success?: %s", srv.response.success ? "Yes" : "No");
     
-    // for (int i = 0; i < srv.response.tag_centers.size(); ++i)
-    // {
-    //   std::cout<<"============ "<<"id = "<<srv.response.tag_centers[i].id.at(0)<<" ============"<<std::endl;
-    //   printf("id = %d, {x, y, z} = {%.4f, %.4f, %.4f}\n", srv.response.tag_centers[i].id.at(0), srv.response.tag_centers[i].pose.pose.pose.position.x, srv.response.tag_centers[i].pose.pose.pose.position.y, srv.response.tag_centers[i].pose.pose.pose.position.z);
-    //   printf("{qx, qy, qz, qw} = {%.4f, %.4f, %.4f, %.8f}\n", srv.response.tag_centers[i].pose.pose.pose.orientation.x, srv.response.tag_centers[i].pose.pose.pose.orientation.y, srv.response.tag_centers[i].pose.pose.pose.orientation.z, srv.response.tag_centers[i].pose.pose.pose.orientation.w);
-    // }
+    if (srv.response.success == true)
+    {
     for (int i = 0; i < srv.response.tag_centers.size(); ++i)
     {
+      // ROS_INFO("%.4f", srv.response.tag_centers.at(i).x);
       std::cout<<"============ "<<"id = "<< i <<" ============"<<std::endl;
-      printf("id = %d, {x, y, z} = {%.4f, %.4f, %.4f}\n", i, srv.response.tag_centers[i].x, srv.response.tag_centers[i].y, srv.response.tag_centers[i].z );
+      printf("id = %d, {x, y, z} = {%.8f, %.8f, %.8f}\n", i, srv.response.tag_centers[i].x, srv.response.tag_centers[i].y, srv.response.tag_centers[i].z );
+    }
     }
   }
   else

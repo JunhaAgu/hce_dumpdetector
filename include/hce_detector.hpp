@@ -9,12 +9,14 @@
 class HceSingleImageDetector
 {
  private:
-  ros::ServiceServer service_gcs;
+  ros::ServiceServer server_hce_dumpdetector;
 
-  ros::ServiceClient client_apriltag;
+  ros::ServiceClient client_apriltag_ros;
                 // nh.serviceClient<apriltag_ros::HceSingleImage>(
                 //     "single_image_tag_detection");
-  ros::NodeHandle* nh_;
+  ros::NodeHandle nh_;
+
+  ros::Publisher point_pub;
   
  public:
 
