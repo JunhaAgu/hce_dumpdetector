@@ -3,9 +3,12 @@
   <arg name="launch_prefix" default="" /> <!--set to value="gdbserver localhost:10000" for remote debugging-->
   <arg name="node_namespace" default="hce_dumpdetector_server_node" />
 
+  <arg name="dir_yaml"        default="/home/junhakim/catkin_ws/src/hce_dumpdetector/yaml/"/>
+
   <!-- Set parameters -->
   <rosparam command="load" file="$(find hce_dumpdetector)/config/settings.yaml" ns="$(arg node_namespace)" />
   <rosparam command="load" file="$(find hce_dumpdetector)/config/tags.yaml" ns="$(arg node_namespace)" />
+  
 
   <node pkg="hce_dumpdetector" type="hce_dumpdetector_server_node" name="$(arg node_namespace)" clear_params="true" output="screen" launch-prefix="$(arg launch_prefix)" >
     
@@ -17,6 +20,9 @@
     <param name="fy" type="double" value="893.2138912525431" />
     <param name="cx" type="double" value="529.8848649123668" />
     <param name="cy" type="double" value="395.1783894490890" />
+
+    <param name="dir_yaml_" type="string" value="$(arg dir_yaml)"/>
+
 
   </node>
 </launch>

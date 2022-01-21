@@ -11,13 +11,22 @@
 
 #include "hce_detector.hpp"
 
+#include <cstdlib>
+#include <string>
+
+using namespace std;
 
 int main(int argc, char **argv)
 {
+    
     ros::init(argc, argv, "hce_dumpdetector_server_node");
     ros::NodeHandle nh;
 
-    HceSingleImageDetector hce_tag_detector(nh);
+    string dir_yaml = "/home/junhakim/catkin_ws/src/hce_dumpdetector/yaml/";
+
+    nh.getParam("dir_yaml_",dir_yaml);
+
+    HceSingleImageDetector hce_tag_detector(nh, dir_yaml);
     ros::spin();
 
     return 0;
