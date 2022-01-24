@@ -10,6 +10,7 @@
 #include <hce_msgs/HceSingleImage.h>
 
 #include "hce_detector.hpp"
+#include "ROS_print_in_color.h"
 
 using namespace std;
 using namespace cv;
@@ -100,9 +101,9 @@ bool HceSingleImageDetector::callbackService(
 
   // printf("%d",srv.response.tag_detections.detections.size());
   // point_pub.publish(response.tag_centers[0]);
-  
 
-  ROS_INFO("\n <hce_dumpdetector server> Done!\n");
+  ROS_INFO("\n <hce_dumpdetector server> Done!");
+  std::cout << pc::GREEN << "Is the tag detection successful?: " << (response.success ? "YES" : "NO") << pc::ENDCOLOR << std::endl;
 
   return true;
 }

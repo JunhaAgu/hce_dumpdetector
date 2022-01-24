@@ -23,6 +23,10 @@
 
     <param name="dir_yaml_" type="string" value="$(arg dir_yaml)"/>
 
-
   </node>
+
+
+  <include file="$(find apriltag_ros)/launch/hce_server.launch">
+  </include>
+
 </launch>
