@@ -24,7 +24,8 @@ int main(int argc, char **argv)
 
     string dir_yaml = "/home/junhakim/catkin_ws/src/hce_dumpdetector/yaml/";
 
-    nh.getParam("dir_yaml_",dir_yaml);
+    ros::param::get("~dir_yaml_",dir_yaml);
+
 
     HceSingleImageDetector hce_tag_detector(nh, dir_yaml);
     ros::spin();

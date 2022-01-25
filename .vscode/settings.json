@@ -66,5 +66,9 @@
         "string_view": "cpp",
         "valarray": "cpp",
         "dense": "cpp"
-    }
+    },
+    "python.autoComplete.extraPaths": [
+        "/home/larrkchdesk/catkin_ws/devel/lib/python2.7/dist-packages",
+        "/opt/ros/melodic/lib/python2.7/dist-packages"
+    ]
 }

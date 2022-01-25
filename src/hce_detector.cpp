@@ -24,9 +24,11 @@ HceSingleImageDetector::HceSingleImageDetector(ros::NodeHandle& nh, const string
 
   // Advertise the single image analysis service
   server_hce_dumpdetector =
-      nh.advertiseService("tag_centers",
+      nh.advertiseService("/service_dump_detector",
                           &HceSingleImageDetector::callbackService, this);
   
+  client_apriltag_ros = nh_.serviceClient<apriltag_ros::HceSingleImage>(
+                "single_image_tag_detection");
   // point_pub = nh.advertise<geometry_msgs::Point>("point_pub", 1);
 
   ROS_INFO_STREAM("\n <hce_dumpdetector server> Ready to communicate");
@@ -43,10 +45,17 @@ bool HceSingleImageDetector::callbackService(
   // }
 
   ROS_INFO("\n <hce_dumpdetector server> callback");
-  client_apriltag_ros = nh_.serviceClient<apriltag_ros::HceSingleImage>(
-                "single_image_tag_detection");
   apriltag_ros::HceSingleImage srv;
   srv.request.img0 = request.img0;
+
+  cv_bridge::CvImagePtr cv_ptr;
+  cv_ptr = cv_bridge::toCvCopy(request.img0, sensor_msgs::image_encodings::BGR8);
+  cv::Mat image = cv_ptr->image;
+
+cv::namedWindow("sibal");
+cv::imshow("sibal",image);
+cv::waitKey(0);
+
 
   // srv.request.camera_info.distortion_model = "plumb_bob";
   // double fx, fy, cx, cy, k1, k2, p1, p2;
