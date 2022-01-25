@@ -47,14 +47,21 @@ bool HceSingleImageDetector::callbackService(
   ROS_INFO("\n <hce_dumpdetector server> callback");
   apriltag_ros::HceSingleImage srv;
   srv.request.img0 = request.img0;
+  srv.request.fx = request.fx;
+  srv.request.fy = request.fy;
+  srv.request.cx = request.cx;
+  srv.request.dist_k1 = request.dist_k1;
+  srv.request.dist_k2 = request.dist_k2;
+  srv.request.dist_p1 = request.dist_p1;
+  srv.request.dist_p2 = request.dist_p2;
 
   cv_bridge::CvImagePtr cv_ptr;
   cv_ptr = cv_bridge::toCvCopy(request.img0, sensor_msgs::image_encodings::BGR8);
   cv::Mat image = cv_ptr->image;
 
-cv::namedWindow("sibal");
-cv::imshow("sibal",image);
-cv::waitKey(0);
+// cv::namedWindow("sibal");
+// cv::imshow("sibal",image);
+// cv::waitKey(0);
 
 
   // srv.request.camera_info.distortion_model = "plumb_bob";

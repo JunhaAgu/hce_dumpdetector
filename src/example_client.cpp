@@ -20,7 +20,7 @@ int main(int argc, char **argv)
   }
 
   ros::NodeHandle n;
-  ros::ServiceClient client = n.serviceClient<hce_msgs::CallDumpDetector>("tag_centers");
+  ros::ServiceClient client = n.serviceClient<hce_msgs::CallDumpDetector>("/service_dump_detector");
   hce_msgs::CallDumpDetector srv;
   // srv.request.a = atoll(argv[1]);
   // srv.request.b = atoll(argv[2]);
@@ -38,6 +38,16 @@ int main(int argc, char **argv)
   // pub_img.publish(img_msg); // ros::Publisher pub_img = node.advertise<sensor_msgs::Image>("topic", queuesize);
   srv.request.header = header;
   srv.request.img0 = img_msg;
+
+  srv.request.fx = 893.4800446716952;
+  srv.request.fy = 893.2138912525431;
+  srv.request.cx = 529.8848649123668;
+  srv.request.cy = 395.1783894490890;
+
+  srv.request.dist_k1 = 0.155682618969427;  //Radial Distortion
+  srv.request.dist_k2 = 0.118825328777770;  //Radial Distortion
+  srv.request.dist_p1 = 0.0;                //Tangential Distortion
+  srv.request.dist_p2 = 0.0;                //Tangential Distortion
 
   // cv_bridge::CvImagePtr cv_ptr;
   // cv_ptr = cv_bridge::toCvCopy(img_msg, sensor_msgs::image_encodings::RGB8);
