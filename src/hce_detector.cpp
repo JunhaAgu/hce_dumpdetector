@@ -7,7 +7,7 @@
 #include <opencv2/highgui/highgui.hpp>
 
 #include <hce_msgs/CallDumpDetector.h>
-#include <hce_msgs/HceSingleImage.h>
+#include <apriltag_ros/HceSingleImage.h>
 
 #include "hce_detector.hpp"
 #include "ROS_print_in_color.h"
@@ -43,10 +43,40 @@ bool HceSingleImageDetector::callbackService(
   // }
 
   ROS_INFO("\n <hce_dumpdetector server> callback");
-  client_apriltag_ros = nh_.serviceClient<hce_msgs::HceSingleImage>(
+  client_apriltag_ros = nh_.serviceClient<apriltag_ros::HceSingleImage>(
                 "single_image_tag_detection");
-  hce_msgs::HceSingleImage srv;
+  apriltag_ros::HceSingleImage srv;
   srv.request.img0 = request.img0;
+
+  // srv.request.camera_info.distortion_model = "plumb_bob";
+  // double fx, fy, cx, cy, k1, k2, p1, p2;
+  // nh_.getParam("fx", fx);
+  // nh_.getParam("fy", fy);
+  // nh_.getParam("cx", cx);
+  // nh_.getParam("cy", cy);
+  // nh_.getParam("k1", k1);
+  // nh_.getParam("k2", k2);
+  // nh_.getParam("p1", p1);
+  // nh_.getParam("p2", p2);
+
+  // // Intrinsic camera matrix for the raw (distorted) images
+  // srv.request.camera_info.K[0] = fx;
+  // srv.request.camera_info.K[2] = cx;
+  // srv.request.camera_info.K[4] = fy;
+  // srv.request.camera_info.K[5] = cy;
+  // srv.request.camera_info.K[8] = 1.0;
+  // srv.request.camera_info.P[0] = fx;
+  // srv.request.camera_info.P[2] = cx;
+  // srv.request.camera_info.P[5] = fy;
+  // srv.request.camera_info.P[6] = cy;
+  // srv.request.camera_info.P[10] = 1.0;
+
+  // srv.request.camera_info.D.push_back(k1);
+  // srv.request.camera_info.D.push_back(k2);
+  // srv.request.camera_info.D.push_back(p1);
+  // srv.request.camera_info.D.push_back(p2);
+
+  // std::cout<< srv.request.camera_info.D.at(0)<<std::endl;
 
   if (client_apriltag_ros.call(srv))
   {

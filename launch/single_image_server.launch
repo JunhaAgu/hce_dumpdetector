@@ -21,6 +21,11 @@
     <param name="cx" type="double" value="529.8848649123668" />
     <param name="cy" type="double" value="395.1783894490890" />
 
+    <param name="k1" type="double" value="0.155682618969427" />       <!-- Radial Distortion   -->
+    <param name="k2" type="double" value="0.118825328777770" />       <!-- Radial Distortion   -->
+    <param name="p1" type="double" value="5.831317355223568e-05" />   <!-- Tangential Distortion   -->
+    <param name="p2" type="double" value="0.001254306950798" />       <!-- Tangential Distortion   -->
+
     <param name="dir_yaml_" type="string" value="$(arg dir_yaml)"/>
 
   </node>
